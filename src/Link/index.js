@@ -24,6 +24,12 @@ export default class Link extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(
+      'LINK!!!! ',
+      nextProps.activated.indexOf(this.props.linkData.target.name) > -1,
+      nextProps.activated,
+      this.props.linkData.target.name,
+    );
     if (
       nextProps.activated !== this.props.activated &&
       nextProps.activated.indexOf(this.props.linkData.target.name) > -1
