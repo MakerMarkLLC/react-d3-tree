@@ -111,7 +111,7 @@ export default class Node extends React.Component {
           this.node = n;
         }}
         style={this.state.initialStyle}
-        className={activeNode ? 'activeNode' : 'nodeBase'}
+        className={activeNode ? 'activeNode nodeBase' : 'nodeBase'}
         transform={this.state.transform}
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
