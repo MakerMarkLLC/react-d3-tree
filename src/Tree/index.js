@@ -184,7 +184,11 @@ export default class Tree extends React.Component {
     const targetNode = matches[0];
 
     if (this.props.collapsible) {
-      targetNode._collapsed ? this.expandNode(targetNode) : this.collapseNode(targetNode);
+      if (targetNode._collapsed) {
+        this.expandNode(targetNode);
+      } else {
+        this.collapseNode(targetNode);
+      }
       this.setState({ data }, () => this.handleOnClickCb(targetNode));
     } else {
       this.handleOnClickCb(targetNode);
@@ -207,9 +211,9 @@ export default class Tree extends React.Component {
 
   /**
    * handleOnMouseOverCb - Handles the user-defined `onMouseOver` function
-   * 
-   * @param {string} nodeId 
-   * 
+   *
+   * @param {string} nodeId
+   *
    * @return {void}
    */
   handleOnMouseOverCb(nodeId) {
@@ -224,9 +228,9 @@ export default class Tree extends React.Component {
 
   /**
    * handleOnMouseOutCb - Handles the user-defined `onMouseOut` function
-   * 
-   * @param {string} nodeId 
-   * 
+   *
+   * @param {string} nodeId
+   *
    * @return {void}
    */
   handleOnMouseOutCb(nodeId) {
@@ -292,6 +296,7 @@ export default class Tree extends React.Component {
       separation,
       circleRadius,
       styles,
+      openNode,
     } = this.props;
 
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
@@ -318,6 +323,7 @@ export default class Tree extends React.Component {
             {nodes.map(nodeData => (
               <Node
                 key={nodeData.id}
+                openNode={openNode}
                 nodeSvgShape={nodeSvgShape}
                 orientation={orientation}
                 transitionDuration={transitionDuration}
@@ -369,6 +375,7 @@ Tree.defaultProps = {
   },
   circleRadius: undefined, // TODO: DEPRECATE
   styles: {},
+  openNode: [],
 };
 
 Tree.propTypes = {
@@ -412,4 +419,5 @@ Tree.propTypes = {
     nodes: PropTypes.object,
     links: PropTypes.object,
   }),
+  openNode: PropTypes.array,
 };

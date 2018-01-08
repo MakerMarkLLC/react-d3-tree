@@ -38,6 +38,12 @@ export default class Node extends React.Component {
       nextProps.orientation,
     );
     this.applyTransform(transform, nextProps.transitionDuration);
+    if (
+      nextProps.openNode !== this.props.openNode &&
+      nextProps.openNode.indexOf(this.props.name) > -1
+    ) {
+      this.props.onClick(this.props.nodeData.id);
+    }
   }
 
   shouldComponentUpdate(nextProps) {
@@ -165,6 +171,7 @@ Node.defaultProps = {
       attributes: {},
     },
   },
+  openNode: [],
 };
 
 Node.propTypes = {
@@ -181,4 +188,5 @@ Node.propTypes = {
   subscriptions: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   circleRadius: PropTypes.number,
   styles: PropTypes.object,
+  openNode: PropTypes.array,
 };
