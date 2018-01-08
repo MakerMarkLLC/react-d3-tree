@@ -64,6 +64,13 @@ export default class Link extends React.PureComponent {
     return straight(data);
   }
 
+  circuitPath(d, orientation) {
+    return orientation === 'horizontal'
+      ? `M${d.source.y},${d.source.x}L${d.source.y + (d.target.y - d.source.y) / Math.rand()},${d
+          .target.x}H${d.target.y}`
+      : `M${d.source.x},${d.source.y}V${d.target.y}H${d.target.x}`;
+  }
+
   elbowPath(d, orientation) {
     return orientation === 'horizontal'
       ? `M${d.source.y},${d.source.x}V${d.target.x}H${d.target.y}`
@@ -75,6 +82,10 @@ export default class Link extends React.PureComponent {
 
     if (typeof pathFunc === 'function') {
       return pathFunc(linkData, orientation);
+    }
+
+    if (pathFunc === 'circuit') {
+      return this.circuitPath(linkData, orientation);
     }
 
     if (pathFunc === 'elbow') {
