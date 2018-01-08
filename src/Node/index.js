@@ -17,6 +17,7 @@ export default class Node extends React.Component {
       initialStyle: {
         opacity: 0,
       },
+      activated: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -38,10 +39,15 @@ export default class Node extends React.Component {
       nextProps.orientation,
     );
     this.applyTransform(transform, nextProps.transitionDuration);
+  }
+
+  componentWillReceiveProps(nextProps) {
     if (
       nextProps.activated !== this.props.activated &&
+      !this.state.activated &&
       nextProps.activated.indexOf(this.props.name) > -1
     ) {
+      this.setState({ activated: true });
       setTimeout(() => {
         this.props.onClick(this.props.nodeData.id);
       }, 500);
