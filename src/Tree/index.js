@@ -396,7 +396,7 @@ Tree.propTypes = {
     y: PropTypes.number,
   }),
   pathFunc: PropTypes.oneOfType([
-    PropTypes.oneOf(['diagonal', 'elbow', 'straight']),
+    PropTypes.oneOf(['diagonal', 'elbow', 'straight', 'circuit']),
     PropTypes.func,
   ]),
   transitionDuration: PropTypes.number,
