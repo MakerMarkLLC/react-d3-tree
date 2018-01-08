@@ -119,7 +119,10 @@ export default class Node extends React.Component {
       >
         {/* TODO: DEPRECATE <circle /> */}
         {this.props.circleRadius ? (
-          <circle r={this.props.circleRadius} style={nodeStyle.circle} />
+          <circle
+            r={activeNode ? this.props.activeRadius : this.props.circleRadius}
+            style={nodeStyle.circle}
+          />
         ) : (
           React.createElement(nodeSvgShape.shape, {
             ...nodeSvgShape.shapeProps,
@@ -160,6 +163,7 @@ export default class Node extends React.Component {
 Node.defaultProps = {
   attributes: undefined,
   circleRadius: undefined,
+  activeRadius: undefined,
   styles: {
     node: {
       circle: {},
@@ -188,6 +192,7 @@ Node.propTypes = {
   textLayout: PropTypes.object.isRequired,
   subscriptions: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   circleRadius: PropTypes.number,
+  activeRadius: PropTypes.number,
   styles: PropTypes.object,
   activeNode: PropTypes.array,
 };

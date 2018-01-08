@@ -295,6 +295,7 @@ export default class Tree extends React.Component {
       initialDepth,
       separation,
       circleRadius,
+      activeRadius,
       styles,
       activeNode,
     } = this.props;
@@ -335,6 +336,7 @@ export default class Tree extends React.Component {
                 onMouseOut={this.handleOnMouseOutCb}
                 textLayout={textLayout}
                 circleRadius={circleRadius}
+                activeRadius={activeRadius}
                 subscriptions={subscriptions}
                 styles={styles.nodes}
               />
@@ -374,6 +376,7 @@ Tree.defaultProps = {
     transform: undefined,
   },
   circleRadius: undefined, // TODO: DEPRECATE
+  activeRadius: undefined,
   styles: {},
   activeNode: [],
 };
@@ -415,6 +418,7 @@ Tree.propTypes = {
   }),
   textLayout: PropTypes.object,
   circleRadius: PropTypes.number,
+  activeRadius: PropTypes.number,
   styles: PropTypes.shape({
     nodes: PropTypes.object,
     links: PropTypes.object,
