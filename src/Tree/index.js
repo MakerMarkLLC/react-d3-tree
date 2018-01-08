@@ -296,7 +296,7 @@ export default class Tree extends React.Component {
       separation,
       circleRadius,
       styles,
-      openNode,
+      activeNode,
     } = this.props;
 
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
@@ -323,7 +323,7 @@ export default class Tree extends React.Component {
             {nodes.map(nodeData => (
               <Node
                 key={nodeData.id}
-                openNode={openNode}
+                activeNode={activeNode}
                 nodeSvgShape={nodeSvgShape}
                 orientation={orientation}
                 transitionDuration={transitionDuration}
@@ -375,7 +375,7 @@ Tree.defaultProps = {
   },
   circleRadius: undefined, // TODO: DEPRECATE
   styles: {},
-  openNode: [],
+  activeNode: [],
 };
 
 Tree.propTypes = {
@@ -419,5 +419,5 @@ Tree.propTypes = {
     nodes: PropTypes.object,
     links: PropTypes.object,
   }),
-  openNode: PropTypes.array,
+  activeNode: PropTypes.array,
 };

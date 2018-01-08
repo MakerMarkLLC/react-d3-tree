@@ -39,8 +39,8 @@ export default class Node extends React.Component {
     );
     this.applyTransform(transform, nextProps.transitionDuration);
     if (
-      nextProps.openNode !== this.props.openNode &&
-      nextProps.openNode.indexOf(this.props.name) > -1
+      nextProps.activeNode !== this.props.activeNode &&
+      nextProps.activeNode.indexOf(this.props.name) > -1
     ) {
       this.props.onClick(this.props.nodeData.id);
     }
@@ -101,6 +101,7 @@ export default class Node extends React.Component {
   }
 
   render() {
+    const activeNode = this.props.activeNode.indexOf(this.props.name) > -1;
     const { nodeData, nodeSvgShape, textLayout, styles } = this.props;
     const nodeStyle = nodeData._children ? { ...styles.node } : { ...styles.leafNode };
     return (
@@ -110,7 +111,7 @@ export default class Node extends React.Component {
           this.node = n;
         }}
         style={this.state.initialStyle}
-        className={nodeData._children ? 'nodeBase' : 'leafNodeBase'}
+        className={activeNode ? 'activeNode' : 'nodeBase'}
         transform={this.state.transform}
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
@@ -171,7 +172,7 @@ Node.defaultProps = {
       attributes: {},
     },
   },
-  openNode: [],
+  activeNode: [],
 };
 
 Node.propTypes = {
@@ -188,5 +189,5 @@ Node.propTypes = {
   subscriptions: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   circleRadius: PropTypes.number,
   styles: PropTypes.object,
-  openNode: PropTypes.array,
+  activeNode: PropTypes.array,
 };
