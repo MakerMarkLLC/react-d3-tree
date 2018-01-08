@@ -297,7 +297,7 @@ export default class Tree extends React.Component {
       circleRadius,
       activeRadius,
       styles,
-      activeNode,
+      activated,
     } = this.props;
 
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
@@ -313,6 +313,7 @@ export default class Tree extends React.Component {
             {links.map(linkData => (
               <Link
                 key={uuid.v4()}
+                activated={activated}
                 orientation={orientation}
                 pathFunc={pathFunc}
                 linkData={linkData}
@@ -324,7 +325,7 @@ export default class Tree extends React.Component {
             {nodes.map(nodeData => (
               <Node
                 key={nodeData.id}
-                activeNode={activeNode}
+                activated={activated}
                 nodeSvgShape={nodeSvgShape}
                 orientation={orientation}
                 transitionDuration={transitionDuration}
@@ -378,7 +379,7 @@ Tree.defaultProps = {
   circleRadius: undefined, // TODO: DEPRECATE
   activeRadius: undefined,
   styles: {},
-  activeNode: [],
+  activated: [],
 };
 
 Tree.propTypes = {
@@ -423,5 +424,5 @@ Tree.propTypes = {
     nodes: PropTypes.object,
     links: PropTypes.object,
   }),
-  activeNode: PropTypes.array,
+  activated: PropTypes.array,
 };

@@ -39,8 +39,8 @@ export default class Node extends React.Component {
     );
     this.applyTransform(transform, nextProps.transitionDuration);
     if (
-      nextProps.activeNode !== this.props.activeNode &&
-      nextProps.activeNode.indexOf(this.props.name) > -1
+      nextProps.activated !== this.props.activated &&
+      nextProps.activated.indexOf(this.props.name) > -1
     ) {
       setTimeout(() => {
         this.props.onClick(this.props.nodeData.id);
@@ -103,7 +103,7 @@ export default class Node extends React.Component {
   }
 
   render() {
-    const activeNode = this.props.activeNode.indexOf(this.props.name) > -1;
+    const activated = this.props.activated.indexOf(this.props.name) > -1;
     const { nodeData, nodeSvgShape, textLayout, styles } = this.props;
     const nodeStyle = nodeData._children ? { ...styles.node } : { ...styles.leafNode };
     return (
@@ -113,7 +113,7 @@ export default class Node extends React.Component {
           this.node = n;
         }}
         style={this.state.initialStyle}
-        className={activeNode ? 'activeNode nodeBase' : 'nodeBase'}
+        className={activated ? 'activated nodeBase' : 'nodeBase'}
         transform={this.state.transform}
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
@@ -122,7 +122,7 @@ export default class Node extends React.Component {
         {/* TODO: DEPRECATE <circle /> */}
         {this.props.circleRadius ? (
           <circle
-            r={activeNode ? this.props.activeRadius : this.props.circleRadius}
+            r={activated ? this.props.activeRadius : this.props.circleRadius}
             style={nodeStyle.circle}
           />
         ) : (
@@ -178,7 +178,7 @@ Node.defaultProps = {
       attributes: {},
     },
   },
-  activeNode: [],
+  activated: [],
 };
 
 Node.propTypes = {
@@ -196,5 +196,5 @@ Node.propTypes = {
   circleRadius: PropTypes.number,
   activeRadius: PropTypes.number,
   styles: PropTypes.object,
-  activeNode: PropTypes.array,
+  activated: PropTypes.array,
 };

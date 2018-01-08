@@ -64,12 +64,14 @@ export default class Link extends React.PureComponent {
     return straight(data);
   }
 
-  circuitPath(d, orientation) {
-    const half = (d.target.x - d.source.x) / 2;
-    return orientation === 'horizontal'
-      ? `M${d.source.y},${d.source.x}V${half * Math.rand()}L${d.source.y},${half * Math.rand()}H${d
-          .target.y}`
-      : `M${d.source.x},${d.source.y}V${d.target.y}H${d.target.x}`;
+  circuitPath(d) {
+    const children = d.source._children;
+    const index = children.map(n => n.name).indexOf(d.target.name);
+    const multiplier = index === children.length - 1 ? Math.random() : index + 1 + Math.random();
+    const a = (d.target.y - d.source.y) / (children.length + 1) * multiplier + d.source.y;
+    const b = a + Math.abs(d.target.x - d.source.x);
+    return `M${d.source.y},${d.source.x}H${a}L${b > d.target.y ? d.target.y : b},${d.target.x}H${d
+      .target.y}`;
   }
 
   elbowPath(d, orientation) {
@@ -102,13 +104,14 @@ export default class Link extends React.PureComponent {
 
   render() {
     const { styles } = this.props;
+    const activated = this.props.activated.indexOf(this.props.linkData.target.name) > -1;
     return (
       <path
         ref={l => {
           this.link = l;
         }}
         style={{ ...this.state.initialStyle, ...styles }}
-        className="linkBase"
+        className={activated ? 'activeLink linkBase' : 'linkBase'}
         d={this.drawPath()}
       />
     );
@@ -117,6 +120,7 @@ export default class Link extends React.PureComponent {
 
 Link.defaultProps = {
   styles: {},
+  activated: [],
 };
 
 Link.propTypes = {
@@ -128,4 +132,5 @@ Link.propTypes = {
   ]).isRequired,
   transitionDuration: PropTypes.number.isRequired,
   styles: PropTypes.object,
+  activated: PropTypes.array,
 };
