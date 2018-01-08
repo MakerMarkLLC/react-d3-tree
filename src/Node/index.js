@@ -42,7 +42,9 @@ export default class Node extends React.Component {
       nextProps.activeNode !== this.props.activeNode &&
       nextProps.activeNode.indexOf(this.props.name) > -1
     ) {
-      this.props.onClick(this.props.nodeData.id);
+      setTimeout(() => {
+        this.props.onClick(this.props.nodeData.id);
+      }, 500);
     }
   }
 
