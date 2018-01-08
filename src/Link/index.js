@@ -65,9 +65,10 @@ export default class Link extends React.PureComponent {
   }
 
   circuitPath(d, orientation) {
+    const half = (d.target.x - d.source.x) / 2;
     return orientation === 'horizontal'
-      ? `M${d.source.y},${d.source.x}L${d.source.y + (d.target.y - d.source.y) / Math.rand()},${d
-          .target.x}H${d.target.y}`
+      ? `M${d.source.y},${d.source.x}V${half * Math.rand()}L${d.source.y},${half * Math.rand()}H${d
+          .target.y}`
       : `M${d.source.x},${d.source.y}V${d.target.y}H${d.target.x}`;
   }
 
@@ -122,7 +123,7 @@ Link.propTypes = {
   linkData: PropTypes.object.isRequired,
   orientation: PropTypes.oneOf(['horizontal', 'vertical']).isRequired,
   pathFunc: PropTypes.oneOfType([
-    PropTypes.oneOf(['diagonal', 'elbow', 'straight']),
+    PropTypes.oneOf(['diagonal', 'elbow', 'straight', 'circuit']),
     PropTypes.func,
   ]).isRequired,
   transitionDuration: PropTypes.number.isRequired,
