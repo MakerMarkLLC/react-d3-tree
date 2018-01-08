@@ -11,7 +11,6 @@ export default class Link extends React.PureComponent {
       initialStyle: {
         opacity: 0,
       },
-      activated: false,
     };
   }
 
@@ -21,21 +20,6 @@ export default class Link extends React.PureComponent {
 
   componentWillLeave(done) {
     this.applyOpacity(0, this.props.transitionDuration, done);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(
-      'LINK!!!! ',
-      nextProps.activated.indexOf(this.props.linkData.target.name) > -1,
-      nextProps.activated,
-      this.props.linkData.target.name,
-    );
-    if (
-      nextProps.activated !== this.props.activated &&
-      nextProps.activated.indexOf(this.props.linkData.target.name) > -1
-    ) {
-      this.setState({ activated: true });
-    }
   }
 
   applyOpacity(opacity, transitionDuration, done = () => {}) {
@@ -120,7 +104,7 @@ export default class Link extends React.PureComponent {
 
   render() {
     const { styles } = this.props;
-    const { activated } = this.state;
+    const activated = this.props.activated.indexOf(this.props.linkData.target.name) > -1;
     return (
       <path
         ref={l => {
