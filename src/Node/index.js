@@ -42,15 +42,15 @@ export default class Node extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.activated !== this.props.activated &&
-      !this.state.activated &&
-      nextProps.activated.indexOf(this.props.name) > -1
-    ) {
-      this.setState({ activated: true });
-      setTimeout(() => {
-        this.props.onClick(this.props.nodeData.id);
-      }, 500);
+    if (nextProps.activated !== this.props.activated) {
+      if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
+        this.setState({ activated: true });
+        setTimeout(() => {
+          this.props.onClick(this.props.nodeData.id);
+        }, this.props.transitionDuration * 1.5);
+      } else {
+        this.setState({ activated: false });
+      }
     }
   }
 
