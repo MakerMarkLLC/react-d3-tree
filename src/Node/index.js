@@ -47,7 +47,7 @@ export default class Node extends React.Component {
         this.setState({ activated: true });
         setTimeout(() => {
           this.props.onClick(this.props.nodeData.id);
-        }, this.props.transitionDuration * 1.5);
+        }, 500);
       } else {
         this.setState({ activated: false });
       }
