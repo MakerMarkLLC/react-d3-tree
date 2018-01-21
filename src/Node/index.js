@@ -147,7 +147,7 @@ export default class Node extends React.Component {
           transform={textLayout.transform}
           dy=".35em"
         >
-          {this.props.name}
+          <tspan fontStyle={activated ? 'normal' : 'italic'}>{this.props.name}</tspan>
         </text>
         <text
           className="nodeAttributesBase"
