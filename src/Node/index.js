@@ -28,6 +28,7 @@ export default class Node extends React.Component {
   componentDidMount() {
     const { nodeData: { x, y }, orientation, transitionDuration } = this.props;
     const transform = this.setTransformOrientation(x, y, orientation);
+    console.log(this.props);
 
     this.applyTransform(transform, transitionDuration);
   }
@@ -47,7 +48,7 @@ export default class Node extends React.Component {
         this.setState({ activated: true });
         setTimeout(() => {
           this.props.onClick(this.props.nodeData.id);
-        }, nextProps.transitionDuration + 100);
+        }, nextProps.transitionDuration);
       } else {
         this.setState({ activated: false });
       }
