@@ -47,8 +47,8 @@ export default class Node extends React.Component {
       if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
         this.setState({ activated: true });
         setTimeout(() => {
-          this.props.onClick(this.props.nodeData.id);
-        }, nextProps.transitionDuration);
+          nextProps.onClick(nextProps.nodeData.id);
+        }, nextProps.transitionDuration * nextProps.depth);
       } else {
         this.setState({ activated: false });
       }
@@ -202,6 +202,7 @@ Node.propTypes = {
   subscriptions: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   circleRadius: PropTypes.number,
   activeRadius: PropTypes.number,
+  depth: PropTypes.number.isRequired,
   styles: PropTypes.object,
   activated: PropTypes.array,
 };
