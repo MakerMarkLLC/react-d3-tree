@@ -47,6 +47,7 @@ export default class Node extends React.Component {
       if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
         this.setState({ activated: true });
         setTimeout(() => {
+          console.log('click');
           nextProps.onClick(nextProps.nodeData.id);
         }, nextProps.transitionDuration * nextProps.depth);
       } else {
@@ -72,7 +73,14 @@ export default class Node extends React.Component {
     return orientation === 'horizontal' ? `translate(${y},${x})` : `translate(${x},${y})`;
   }
 
-  applyTransform(transform, transitionDuration, opacity = 1, done = () => {}) {
+  applyTransform(
+    transform,
+    transitionDuration,
+    opacity = 1,
+    done = () => {
+      console.log('done');
+    },
+  ) {
     if (transitionDuration === 0) {
       select(this.node)
         .attr('transform', transform)
