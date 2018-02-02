@@ -29,7 +29,12 @@ export default class Node extends React.Component {
     const { nodeData: { x, y }, orientation, transitionDuration } = this.props;
     const transform = this.setTransformOrientation(x, y, orientation);
     console.log(this.props);
-
+    if (!this.state.activated && this.props.activated.indexOf(this.props.name) > -1) {
+      setTimeout(() => {
+        this.setState({ activated: true });
+        this.props.onClick(this.props.nodeData.id);
+      }, this.props.transitionDuration);
+    }
     this.applyTransform(transform, transitionDuration);
   }
 
