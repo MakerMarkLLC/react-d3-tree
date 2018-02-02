@@ -31,8 +31,9 @@ export default class Node extends React.Component {
     console.log(this.props);
     if (!this.state.activated && this.props.activated.indexOf(this.props.name) > -1) {
       setTimeout(() => {
+        console.log('opening');
         this.setState({ activated: true });
-        this.props.onClick(this.props.nodeData.id);
+        this.handleClick();
       }, this.props.transitionDuration);
     }
     this.applyTransform(transform, transitionDuration);
@@ -47,19 +48,19 @@ export default class Node extends React.Component {
     this.applyTransform(transform, nextProps.transitionDuration);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.activated !== this.props.activated) {
-      if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
-        this.setState({ activated: true });
-        setTimeout(() => {
-          console.log('click');
-          nextProps.onClick(nextProps.nodeData.id);
-        }, nextProps.transitionDuration * nextProps.depth);
-      } else {
-        this.setState({ activated: false });
-      }
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.activated !== this.props.activated) {
+  //     if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
+  //       this.setState({ activated: true });
+  //       setTimeout(() => {
+  //         console.log('click');
+  //         nextProps.onClick(nextProps.nodeData.id);
+  //       }, nextProps.transitionDuration * nextProps.depth);
+  //     } else {
+  //       this.setState({ activated: false });
+  //     }
+  //   }
+  // }
 
   shouldComponentUpdate(nextProps) {
     return this.shouldNodeTransform(this.props, nextProps);
@@ -215,7 +216,7 @@ Node.propTypes = {
   subscriptions: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   circleRadius: PropTypes.number,
   activeRadius: PropTypes.number,
-  depth: PropTypes.number.isRequired,
+  // depth: PropTypes.number.isRequired,
   styles: PropTypes.object,
   activated: PropTypes.array,
 };
