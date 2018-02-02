@@ -28,10 +28,10 @@ export default class Node extends React.Component {
   componentDidMount() {
     const { nodeData: { x, y }, orientation, transitionDuration } = this.props;
     const transform = this.setTransformOrientation(x, y, orientation);
-    console.log(this.props);
+    // console.log(this.props);
     if (!this.state.activated && this.props.activated.indexOf(this.props.name) > -1) {
       setTimeout(() => {
-        console.log('opening');
+        // console.log('opening');
         this.setState({ activated: true });
         this.handleClick();
       }, this.props.transitionDuration);
@@ -53,7 +53,6 @@ export default class Node extends React.Component {
   //     if (!this.state.activated && nextProps.activated.indexOf(this.props.name) > -1) {
   //       this.setState({ activated: true });
   //       setTimeout(() => {
-  //         console.log('click');
   //         nextProps.onClick(nextProps.nodeData.id);
   //       }, nextProps.transitionDuration * nextProps.depth);
   //     } else {
@@ -84,7 +83,7 @@ export default class Node extends React.Component {
     transitionDuration,
     opacity = 1,
     done = () => {
-      console.log('done');
+      // console.log('done');
     },
   ) {
     if (transitionDuration === 0) {
